@@ -9,3 +9,5 @@ class KotlinUnicheckBackendApplication
 fun main(args: Array<String>) {
     runApplication<KotlinUnicheckBackendApplication>(*args)
 }
+
+

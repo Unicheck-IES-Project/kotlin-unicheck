@@ -8,6 +8,7 @@ class KotlinUnicheckBackendApplicationTests {
 
     @Test
     fun contextLoads() {
+
     }
 
 }
