@@ -1,4 +1,4 @@
-package LogicaDeNegocio
+package com.unicheck.kotlinunicheckbackend.LogicaDeNegocio
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
