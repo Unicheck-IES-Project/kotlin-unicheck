@@ -1,12 +1,12 @@
 package com.unicheck.kotlinunicheckbackend.Service
 
 import com.unicheck.kotlinunicheckbackend.LogicaDeNegocio.Materia
-import com.unicheck.kotlinunicheckbackend.Repository.materiasRepository
+import com.unicheck.kotlinunicheckbackend.Repository.MateriasRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class MateriasService(@Autowired var materiasRepository: materiasRepository){
+class MateriasService(@Autowired var materiasRepository: MateriasRepository){
 
      fun agregarMateria(materia: Materia): Materia{
         materiasRepository.save(materia)

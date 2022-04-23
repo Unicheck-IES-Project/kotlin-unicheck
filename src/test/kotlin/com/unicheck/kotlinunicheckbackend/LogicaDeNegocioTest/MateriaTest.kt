@@ -1,4 +1,4 @@
-package LogicaDeNegocioTest
+package com.unicheck.kotlinunicheckbackend.LogicaDeNegocioTest
 
 import com.unicheck.kotlinunicheckbackend.LogicaDeNegocio.Materia
 import org.junit.Test
