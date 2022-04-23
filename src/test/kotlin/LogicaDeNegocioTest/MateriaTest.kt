@@ -1,6 +1,6 @@
 package LogicaDeNegocioTest
 
-import LogicaDeNegocio.Materia
+import com.unicheck.kotlinunicheckbackend.LogicaDeNegocio.Materia
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
