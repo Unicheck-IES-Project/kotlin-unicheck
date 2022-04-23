@@ -9,7 +9,8 @@ import javax.persistence.Id
 class Materia(nombre:String,
               var periodoDeCursada:String,
               nota:Float,
-              var cursando:Boolean){
+              var cursando:Boolean,
+              var añoDeCursada: Int){
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
