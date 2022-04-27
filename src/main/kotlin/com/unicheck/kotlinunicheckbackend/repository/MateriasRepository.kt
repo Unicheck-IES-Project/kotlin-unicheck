@@ -1,6 +1,6 @@
-package com.unicheck.kotlinunicheckbackend.Repository
+package com.unicheck.kotlinunicheckbackend.repository
 
-import com.unicheck.kotlinunicheckbackend.LogicaDeNegocio.Materia
+import com.unicheck.kotlinunicheckbackend.model.Materia
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

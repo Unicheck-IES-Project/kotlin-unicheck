@@ -1,8 +1,7 @@
-package Service
+package com.unicheck.kotlinunicheckbackend.service
 
-import com.unicheck.kotlinunicheckbackend.LogicaDeNegocio.Materia
-import com.unicheck.kotlinunicheckbackend.Repository.MateriasRepository
-import com.unicheck.kotlinunicheckbackend.Service.MateriasService
+import com.unicheck.kotlinunicheckbackend.model.Materia
+import com.unicheck.kotlinunicheckbackend.repository.MateriasRepository
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.junit.runner.RunWith
@@ -11,7 +10,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
-import org.springframework.boot.context.properties.bind.Bindable.listOf
 
 
 @RunWith(MockitoJUnitRunner::class)
