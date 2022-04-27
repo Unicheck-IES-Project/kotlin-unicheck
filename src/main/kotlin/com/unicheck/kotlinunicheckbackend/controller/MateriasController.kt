@@ -1,7 +1,7 @@
-package com.unicheck.kotlinunicheckbackend.Controller
+package com.unicheck.kotlinunicheckbackend.controller
 
-import com.unicheck.kotlinunicheckbackend.LogicaDeNegocio.Materia
-import com.unicheck.kotlinunicheckbackend.Service.MateriasService
+import com.unicheck.kotlinunicheckbackend.model.Materia
+import com.unicheck.kotlinunicheckbackend.service.MateriasService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*

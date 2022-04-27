@@ -1,7 +1,7 @@
-package com.unicheck.kotlinunicheckbackend.Service
+package com.unicheck.kotlinunicheckbackend.service
 
-import com.unicheck.kotlinunicheckbackend.LogicaDeNegocio.Materia
-import com.unicheck.kotlinunicheckbackend.Repository.MateriasRepository
+import com.unicheck.kotlinunicheckbackend.model.Materia
+import com.unicheck.kotlinunicheckbackend.repository.MateriasRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
