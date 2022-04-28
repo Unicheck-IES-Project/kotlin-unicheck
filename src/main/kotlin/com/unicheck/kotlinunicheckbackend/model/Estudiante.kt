@@ -24,7 +24,7 @@ class Estudiante {
     private val materias : MutableList<Materia>
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    var id: Long? = null
+    private var id: Long? = null
 
     private constructor(unNombreDeUsuario : String, unaContraseña : String){
         nombreDeUsuario = unNombreDeUsuario
@@ -48,6 +48,13 @@ class Estudiante {
 
     fun estaIdentificadoConContraseña(unaContraseñaAComparar: String): Boolean {
         return contraseña.equals(unaContraseñaAComparar)
+    }
+
+    fun getNombre():String{
+        return this.nombreDeUsuario
+    }
+    fun getId():Long{
+        return this.id!!
     }
 
 }
