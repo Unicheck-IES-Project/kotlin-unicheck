@@ -20,9 +20,9 @@ class MateriaTest {
 
         materia  = Materia(nombreDeLaMateria,
             periodoDeCursada,
-            nota,
             cursando,
-            año)
+            año,
+            nota)
 
         Assertions.assertEquals( materia.nombre, nombreDeLaMateria)
         Assertions.assertEquals( materia.periodoDeCursada, periodoDeCursada)
@@ -41,9 +41,9 @@ class MateriaTest {
         val exception = assertThrows<java.lang.RuntimeException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
-                notaMenorAUno,
                 cursando,
-                año)
+                año,
+                notaMenorAUno)
         }
 
         Assertions.assertEquals("La nota debe estar comprendida entre los valores 1 y 10", exception.message)
@@ -61,9 +61,9 @@ class MateriaTest {
         val exception = assertThrows<java.lang.RuntimeException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
-                notaMayorADiez,
                 cursando,
-                año)
+                año,
+                notaMayorADiez)
         }
 
         Assertions.assertEquals("La nota debe estar comprendida entre los valores 1 y 10", exception.message)
@@ -80,12 +80,33 @@ class MateriaTest {
         val exception = assertThrows<java.lang.RuntimeException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
-                nota,
                 cursando,
-                año)
+                año,
+                nota)
         }
 
         Assertions.assertEquals("El nombre no puede estar vacio", exception.message)
+
+    }
+
+    @Test
+    fun unaMateriaPuedeNoTenerUnaNotaTest(){
+        var nombreDeLaMateria = "Elementos De Ingenieria De Software"
+        var periodoDeCursada = "Elementos De Ingenieria De Software"
+        var cursando = false
+        var año = 2022
+
+        var materia  = Materia(nombreDeLaMateria,
+                periodoDeCursada,
+                cursando,
+                año)
+
+
+        Assertions.assertEquals( materia.nombre, nombreDeLaMateria)
+        Assertions.assertEquals( materia.periodoDeCursada, periodoDeCursada)
+        Assertions.assertEquals( materia.nota, null)
+        Assertions.assertEquals( materia.cursando, cursando)
+        Assertions.assertEquals( materia.añoDeCursada, año)
 
     }
 

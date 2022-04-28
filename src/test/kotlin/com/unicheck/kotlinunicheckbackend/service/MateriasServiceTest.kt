@@ -34,9 +34,9 @@ class MateriasServiceTest {
         var año = 2022
         materia  = Materia(nombreDeLaMateria,
             periodoDeCursada,
-            nota,
             cursando,
-            año)
+            año,
+            nota)
 
         var listaDeMaterias : List<Materia> = listOf(materia)
         `when`(materiaRepository.findAll()).thenReturn(listaDeMaterias)
@@ -53,9 +53,9 @@ class MateriasServiceTest {
         var año = 2022
         materia  = Materia(nombreDeLaMateria,
             periodoDeCursada,
-            nota,
             cursando,
-            año)
+            año,
+            nota)
 
         `when`(materiaRepository.save( any( Materia::class.java )) ).thenReturn(materia)
 

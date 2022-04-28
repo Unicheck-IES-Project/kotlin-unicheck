@@ -37,7 +37,7 @@ class EstudianteTest {
     @Test
     fun `un estudiante puede registrar una materia`() {
         val estudiante = Estudiante.identificadoCon(USERNAME, PASSWORD)
-        val unaMateria = Materia("Lengua I", "Anual", 9f, true, 2022)
+        val unaMateria = Materia("Lengua I", "Anual", true, 2022 ,9f)
 
         estudiante.registrar(unaMateria)
 
