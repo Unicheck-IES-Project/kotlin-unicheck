@@ -1,7 +1,9 @@
 package com.unicheck.kotlinunicheckbackend.model
 
 import java.util.*
+import javax.persistence.*
 
+@Entity
 class Estudiante {
 
     companion object {
@@ -17,7 +19,12 @@ class Estudiante {
 
     private val nombreDeUsuario : String
     private val contraseña : String
+
+    @OneToMany(mappedBy="estudiante")
     private val materias : MutableList<Materia>
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    var id: Long? = null
 
     private constructor(unNombreDeUsuario : String, unaContraseña : String){
         nombreDeUsuario = unNombreDeUsuario
