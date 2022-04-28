@@ -1,9 +1,8 @@
 package com.unicheck.kotlinunicheckbackend.model
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import java.awt.print.Book
+import javax.persistence.*
+
 
 @Entity
 class Materia(nombre:String,
