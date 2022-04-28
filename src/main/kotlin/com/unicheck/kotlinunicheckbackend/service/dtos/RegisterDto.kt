@@ -1,3 +1,3 @@
 package com.unicheck.kotlinunicheckbackend.service.dtos
 
-class RegisterDto (username: String, password: String) {}
+class RegisterDto (var username: String, var password: String) {}
