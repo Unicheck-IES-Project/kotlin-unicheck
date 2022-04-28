@@ -7,9 +7,9 @@ import javax.persistence.*
 @Entity
 class Materia(nombre:String,
               var periodoDeCursada:String,
-              nota:Float,
               var cursando:Boolean,
-              var añoDeCursada: Int){
+              var añoDeCursada: Int,
+              nota:Float? = null){
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -17,8 +17,8 @@ class Materia(nombre:String,
     var nota = chequearNota(nota)
     var nombre = chequearNombre(nombre)
 
-    fun chequearNota(nota: Float) : Float{
-        if (esUnaNotaInvalida(nota)){
+    fun chequearNota(nota: Float?) : Float?{
+        if ( !(esUnaNotaValida(nota)) ){
             throw java.lang.RuntimeException("La nota debe estar comprendida entre los valores 1 y 10")
         }
         return nota
@@ -33,7 +33,8 @@ class Materia(nombre:String,
 
     private fun esUnCampoDeNombreInvalido(nombre: String) = nombre.length == 0
 
-    private fun esUnaNotaInvalida(nota: Float) = nota < 1f || nota > 10f
+    private fun esUnaNotaInvalida(nota: Float) =  nota < 1f || nota > 10f
 
+    private fun esUnaNotaValida(nota : Float?) = nota == null || !(esUnaNotaInvalida(nota!!))
 
 }
