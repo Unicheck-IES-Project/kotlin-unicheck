@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface EstudianteRepository : JpaRepository<Estudiante, Long> {
     fun findByNombreDeUsuario(nombre: String): Estudiante
+
 }

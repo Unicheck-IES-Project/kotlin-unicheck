@@ -26,4 +26,9 @@ class EstudianteService(@Autowired var estudianteRepository: EstudianteRepositor
         }
         return estudianteRepository.save(Estudiante.identificadoCon(usuario,contraseña))
     }
+
+    fun existeElEstudianteConLaId_(idUsuario: Long) : Boolean{
+        var estudiante = estudianteRepository.findById(idUsuario).orElse(null)
+        return  estudiante != null
+    }
 }
