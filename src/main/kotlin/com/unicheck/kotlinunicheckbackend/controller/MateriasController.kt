@@ -1,7 +1,11 @@
 package com.unicheck.kotlinunicheckbackend.controller
 
+import com.unicheck.kotlinunicheckbackend.model.Estudiante
 import com.unicheck.kotlinunicheckbackend.model.Materia
+import com.unicheck.kotlinunicheckbackend.repository.EstudianteRepository
+import com.unicheck.kotlinunicheckbackend.service.EstudianteService
 import com.unicheck.kotlinunicheckbackend.service.MateriasService
+import com.unicheck.kotlinunicheckbackend.service.dtos.PeticionMateria
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -16,21 +20,34 @@ class MateriasController {
     @Autowired
     private lateinit var materiasService: MateriasService
 
+    @Autowired
+    private lateinit var estudianteService: EstudianteService
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun agregarUnaMateria (@RequestBody materia: Materia) : Materia {
-        try {
-            val materiaCreada = materiasService.agregarMateria(materia)
-            return materiaCreada
-        } catch(e: RuntimeException){
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST,e.message!!,e)
+    fun agregarUnaMateria (@RequestBody peticion : PeticionMateria) : Estudiante {
+
+        if (  estudianteService.existeElEstudianteConLaId_(peticion.idUsuario) ){
+            try {
+                val estudiante = materiasService.agregarMateria(peticion)
+                return estudiante
+            } catch(e: RuntimeException){
+                throw ResponseStatusException(HttpStatus.BAD_REQUEST,e.message!!,e)
+            }
         }
+        throw java.lang.RuntimeException("El nombre de usuario no existe")
     }
 
+
     @GetMapping
+    //esto deberia borrarse
     fun listarMaterias(): List<Materia> {
         return materiasService.listarMaterias()
+    }
+
+    // hay que discutir el endpoint y si va a venir el id por url o por body
+    fun listaDeMateriasPara_(idEstudiante: Long) : Collection<Materia> {
+           return materiasService.listarMateriasDe_(idEstudiante)
     }
 
 }
