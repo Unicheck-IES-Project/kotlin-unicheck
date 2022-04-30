@@ -17,7 +17,7 @@ class EstudianteController {
     @Autowired
     private lateinit var estudianteService: EstudianteService
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     fun registrarEstudiante (@RequestBody studentRegistrationDTO: StudentRegistrationDTO) : EstudianteDto {
         try {
@@ -28,7 +28,7 @@ class EstudianteController {
         }
     }
 
-    @GetMapping
+    @PostMapping("/login")
     fun login(@RequestBody loginDto: LoginDto) : EstudianteDto  {
         try {
             var estudianteLogueado = estudianteService.login(loginDto.username, loginDto.password)
