@@ -14,10 +14,10 @@ class EstudianteService(@Autowired var estudianteRepository: EstudianteRepositor
 
     fun login(usuario: String, contraseña: String): Estudiante {
         var estudiante = estudianteRepository.findByNombreDeUsuario(usuario)
-        if (!estudiante.estaIdentificadoConContraseña(contraseña)){
+        if (estudiante != null && !estudiante!!.estaIdentificadoConContraseña(contraseña)){
             throw java.lang.RuntimeException("Usuario o Contraseña incorrectos")
         }
-        return estudiante
+        return estudiante!!
     }
 
     fun register(usuario: String, contraseña: String): Estudiante{
@@ -25,5 +25,10 @@ class EstudianteService(@Autowired var estudianteRepository: EstudianteRepositor
             throw java.lang.RuntimeException("El nombre de usuario ya se encuentra en uso")
         }
         return estudianteRepository.save(Estudiante.identificadoCon(usuario,contraseña))
+    }
+
+    fun existeElEstudianteConLaId_(idUsuario: Long) : Boolean{
+        var estudiante = estudianteRepository.findById(idUsuario).orElse(null)
+        return  estudiante != null
     }
 }

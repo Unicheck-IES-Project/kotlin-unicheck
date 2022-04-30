@@ -1,8 +1,6 @@
 package com.unicheck.kotlinunicheckbackend.model
 
-import java.awt.print.Book
 import javax.persistence.*
-
 
 @Entity
 class Materia(nombre:String,
@@ -16,6 +14,8 @@ class Materia(nombre:String,
     var id: Long? = null
     var nota = chequearNota(nota)
     var nombre = chequearNombre(nombre)
+    @ManyToOne
+    var estudiante : Estudiante? = null
 
     fun chequearNota(nota: Float?) : Float?{
         if ( !(esUnaNotaValida(nota)) ){
