@@ -1,11 +1,9 @@
 package com.unicheck.kotlinunicheckbackend.controller
 
-import com.unicheck.kotlinunicheckbackend.model.Materia
 import com.unicheck.kotlinunicheckbackend.service.EstudianteService
-import com.unicheck.kotlinunicheckbackend.service.MateriasService
 import com.unicheck.kotlinunicheckbackend.service.dtos.EstudianteDto
 import com.unicheck.kotlinunicheckbackend.service.dtos.LoginDto
-import com.unicheck.kotlinunicheckbackend.service.dtos.RegisterDto
+import com.unicheck.kotlinunicheckbackend.service.dtos.StudentRegistrationDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -21,9 +19,9 @@ class EstudianteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun registrarEstudiante (@RequestBody registerDto: RegisterDto) : EstudianteDto {
+    fun registrarEstudiante (@RequestBody studentRegistrationDTO: StudentRegistrationDTO) : EstudianteDto {
         try {
-            val estudianteCreado = estudianteService.register(registerDto.username, registerDto.password)
+            val estudianteCreado = estudianteService.registerStudentWith(studentRegistrationDTO.username, studentRegistrationDTO.password)
             return EstudianteDto(estudianteCreado)
         } catch(exception: RuntimeException){
             throw ResponseStatusException(HttpStatus.BAD_REQUEST,exception.message!!,exception)

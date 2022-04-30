@@ -37,11 +37,10 @@ class EstudianteTest {
     @Test
     fun `un estudiante puede registrar una materia`() {
         val estudiante = Estudiante.identificadoCon(USERNAME, PASSWORD)
-        val unaMateria = Materia("Lengua I", "Anual", true, 2022 ,9f)
 
-        estudiante.registrar(unaMateria)
+        val materiaRegistrada = estudiante.registrarMateriaLlamada("Lengua I", "Anual", true, 2022 ,9f)
 
-        assertTrue(estudiante.materiasRegistradas().contains(unaMateria))
+        assertTrue(estudiante.materiasRegistradas().contains(materiaRegistrada))
     }
 
     @Test
