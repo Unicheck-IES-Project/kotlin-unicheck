@@ -8,15 +8,15 @@ class Materia(nombre:String,
               var cursando:Boolean,
               var añoDeCursada: Int,
               nota:Float? = null,
-              estudiante: Estudiante){
+              @ManyToOne(fetch = FetchType.LAZY)
+              var estudiante : Estudiante? = null){
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     var id: Long? = null
     var nota = chequearNota(nota)
     var nombre = chequearNombre(nombre)
-    @ManyToOne
-    var estudiante : Estudiante? = null
+
 
     fun chequearNota(nota: Float?) : Float?{
         if ( !(esUnaNotaValida(nota)) ){

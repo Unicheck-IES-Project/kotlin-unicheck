@@ -1,13 +1,21 @@
 package com.unicheck.kotlinunicheckbackend.model
 
+import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 
 
 class MateriaTest {
 
     lateinit var materia: Materia
+    lateinit var estudiante: Estudiante
+
+    @Before
+    fun setup() {
+        estudiante = Estudiante.identificadoCon("Julian", "trejo83")
+    }
 
     @Test
     fun constructorTest() {
@@ -22,7 +30,8 @@ class MateriaTest {
             periodoDeCursada,
             cursando,
             año,
-            nota)
+            nota,
+            estudiante)
 
         Assertions.assertEquals( materia.nombre, nombreDeLaMateria)
         Assertions.assertEquals( materia.periodoDeCursada, periodoDeCursada)
@@ -43,7 +52,8 @@ class MateriaTest {
                 periodoDeCursada,
                 cursando,
                 año,
-                notaMenorAUno)
+                notaMenorAUno,
+                estudiante = estudiante)
         }
 
         Assertions.assertEquals("La nota debe estar comprendida entre los valores 1 y 10", exception.message)
@@ -63,7 +73,8 @@ class MateriaTest {
                 periodoDeCursada,
                 cursando,
                 año,
-                notaMayorADiez)
+                notaMayorADiez,
+                estudiante)
         }
 
         Assertions.assertEquals("La nota debe estar comprendida entre los valores 1 y 10", exception.message)
@@ -82,7 +93,8 @@ class MateriaTest {
                 periodoDeCursada,
                 cursando,
                 año,
-                nota)
+                nota,
+                estudiante)
         }
 
         Assertions.assertEquals("El nombre no puede estar vacio", exception.message)
@@ -99,7 +111,8 @@ class MateriaTest {
         var materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
                 cursando,
-                año)
+                año,
+                estudiante = estudiante)
 
 
         Assertions.assertEquals( materia.nombre, nombreDeLaMateria)

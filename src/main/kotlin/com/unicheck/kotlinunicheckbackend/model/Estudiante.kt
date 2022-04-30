@@ -16,7 +16,7 @@ class Estudiante {
     private val nombreDeUsuario : String
     private val contraseña : String
 
-    @OneToMany(mappedBy="estudiante")
+    @OneToMany(mappedBy="estudiante", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
     private val materias : MutableList<Materia>
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -32,10 +32,6 @@ class Estudiante {
         return Collections.unmodifiableList(materias)
     }
 
-    fun registrar(unaMateria: Materia) {
-        materias.add(unaMateria)
-    }
-
     fun estaIdentificadoConContraseña(unaContraseñaAComparar: String): Boolean {
         return contraseña.equals(unaContraseñaAComparar)
     }
@@ -45,6 +41,18 @@ class Estudiante {
     }
     fun getId():Long{
         return this.id!!
+    }
+
+    fun registrarMateriaLlamada(
+        nombre: String,
+        periodoDeCursada: String,
+        cursando: Boolean,
+        añoDeCursada: Int,
+        nota: Float?
+    ): Materia {
+        val materia = Materia(nombre, periodoDeCursada, cursando, añoDeCursada, nota, this)
+        materias.add(materia)
+        return materia
     }
 
 }
