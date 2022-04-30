@@ -9,7 +9,8 @@ class Materia(nombre:String,
               var periodoDeCursada:String,
               var cursando:Boolean,
               var añoDeCursada: Int,
-              nota:Float? = null){
+              nota:Float? = null,
+              estudiante: Estudiante){
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

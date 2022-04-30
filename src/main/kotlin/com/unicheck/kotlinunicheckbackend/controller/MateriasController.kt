@@ -40,13 +40,7 @@ class MateriasController {
 
 
     @GetMapping
-    //esto deberia borrarse
-    fun listarMaterias(): List<Materia> {
-        return materiasService.listarMaterias()
-    }
-
-    // hay que discutir el endpoint y si va a venir el id por url o por body
-    fun listaDeMateriasPara_(idEstudiante: Long) : Collection<Materia> {
+    fun listaDeMateriasPara_(@RequestBody idEstudiante: Long) : Collection<Materia> {
            return materiasService.listarMateriasDe_(idEstudiante)
     }
 

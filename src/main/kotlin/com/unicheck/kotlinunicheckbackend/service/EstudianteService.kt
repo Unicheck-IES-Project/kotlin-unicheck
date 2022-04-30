@@ -28,7 +28,6 @@ class EstudianteService(@Autowired var estudianteRepository: EstudianteRepositor
     }
 
     fun existeElEstudianteConLaId_(idUsuario: Long) : Boolean{
-        var estudiante = estudianteRepository.findById(idUsuario).orElse(null)
-        return  estudiante != null
+        return estudianteRepository.findById(idUsuario).isPresent()
     }
 }

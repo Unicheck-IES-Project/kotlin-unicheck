@@ -13,8 +13,15 @@ class MateriasService(@Autowired var materiasRepository: MateriasRepository,
                       @Autowired var estudianteRepository: EstudianteRepository){
 
      fun agregarMateria(peticion : PeticionMateria): Estudiante{
-         var estudiante : Estudiante = estudianteRepository.findById(peticion.idUsuario).orElse(null)!!
-         estudiante.registrar(peticion.materia)
+         var estudiante : Estudiante = estudianteRepository.findById(peticion.idUsuario).get()
+         var materiaAAgregar =
+             Materia(peticion.nombre,
+                     peticion.periodoDeCursada,
+                     peticion.cursando,
+                     peticion.añoDeCursada,
+                     peticion.nota,
+                     estudiante)
+         estudiante.registrar(materiaAAgregar)
          var estudianteConMateriaAgregada = estudianteRepository.save(estudiante)
          return estudianteConMateriaAgregada
     }
@@ -24,7 +31,7 @@ class MateriasService(@Autowired var materiasRepository: MateriasRepository,
     }
 
     fun listarMateriasDe_(idUsuario : Long) : Collection<Materia> {
-        var estudiante : Estudiante = estudianteRepository.findById(idUsuario).orElse(null)!!
+        var estudiante : Estudiante = estudianteRepository.findById(idUsuario).get()
         return estudiante.materiasRegistradas()
     }
 }
