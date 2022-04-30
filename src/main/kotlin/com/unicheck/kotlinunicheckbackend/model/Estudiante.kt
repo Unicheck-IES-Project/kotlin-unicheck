@@ -7,10 +7,6 @@ import javax.persistence.*
 class Estudiante {
 
     companion object {
-        /*
-        Objeto válido desde el primer momento.
-        Constructor privado, único punto de entrada mediante validación.
-         */
         fun identificadoCon(unNombreDeUsuario : String, unaContraseña : String) : Estudiante {
             StudentCreationValidator(unNombreDeUsuario, unaContraseña).validate()
             return Estudiante(unNombreDeUsuario, unaContraseña)
@@ -24,7 +20,7 @@ class Estudiante {
     private val materias : MutableList<Materia>
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private var id: Long? = null
+    var id: Long? = null
 
     private constructor(unNombreDeUsuario : String, unaContraseña : String){
         nombreDeUsuario = unNombreDeUsuario
@@ -33,12 +29,6 @@ class Estudiante {
     }
 
     fun materiasRegistradas() : Collection<Materia> {
-        /*
-         Principio de objetos inmutables. - ndemaio
-         Según método #unmodifiableList, retorna una lista NO modificable.
-         Al intentar hacer operaciones de escritura lanza excepción.
-         Al retornar la lista tal cual, podriamos editar las materias desde afuera.
-        */
         return Collections.unmodifiableList(materias)
     }
 

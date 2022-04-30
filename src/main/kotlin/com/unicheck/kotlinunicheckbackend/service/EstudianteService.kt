@@ -14,10 +14,10 @@ class EstudianteService(@Autowired var estudianteRepository: EstudianteRepositor
 
     fun login(usuario: String, contraseña: String): Estudiante {
         var estudiante = estudianteRepository.findByNombreDeUsuario(usuario)
-        if (!estudiante.estaIdentificadoConContraseña(contraseña)){
+        if (estudiante != null && !estudiante!!.estaIdentificadoConContraseña(contraseña)){
             throw java.lang.RuntimeException("Usuario o Contraseña incorrectos")
         }
-        return estudiante
+        return estudiante!!
     }
 
     fun register(usuario: String, contraseña: String): Estudiante{
