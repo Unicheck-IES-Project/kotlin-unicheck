@@ -23,9 +23,10 @@ class MateriasController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun registrarMateria (@PathVariable studentIdentifier : Long, @RequestBody request : SubjectCreationRequest) {
+    fun registrarMateria (@PathVariable studentIdentifier : Long, @RequestBody request : SubjectCreationRequest) : Materia {
         try {
-            materiasService.addSubjectToStudentIdentifiedBy(studentIdentifier, request)
+            val addedSubject = materiasService.addSubjectToStudentIdentifiedBy(studentIdentifier, request)
+            return addedSubject
         } catch(e: RuntimeException){
             throw ResponseStatusException(HttpStatus.BAD_REQUEST,e.message!!,e)
         }

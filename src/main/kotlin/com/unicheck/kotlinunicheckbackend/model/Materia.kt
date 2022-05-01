@@ -14,7 +14,10 @@ class Materia(nombre:String,
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     var id: Long? = null
+
+    @Column(nullable = true)
     var nota = chequearNota(nota)
+
     var nombre = chequearNombre(nombre)
 
 
