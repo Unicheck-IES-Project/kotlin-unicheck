@@ -55,4 +55,12 @@ class Estudiante {
         return materia
     }
 
+    fun delete(subjectToDelete: Materia?) {
+        if (materias.contains(subjectToDelete)) {
+            materias.remove(subjectToDelete)
+        } else {
+            throw RuntimeException("Materia no registrada por estudiante ${nombreDeUsuario}.")
+        }
+    }
+
 }

@@ -32,10 +32,19 @@ class MateriasController {
         }
     }
 
-
     @GetMapping
     fun materiasParaEstudianteIdentificadoCon(@PathVariable studentIdentifier : Long) : Collection<Materia> {
            return materiasService.subjectsOfStudentIdentifiedBy(studentIdentifier)
+    }
+
+    @DeleteMapping("/{subjectIdentifier}")
+    @ResponseStatus(HttpStatus.OK)
+    fun borrarMateria(@PathVariable studentIdentifier: Long, @PathVariable subjectIdentifier : Long) : Materia {
+        try {
+            return materiasService.deleteSubjectForStudentIdentifiedBy(studentIdentifier, subjectIdentifier)
+        } catch (exception : RuntimeException){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, exception.message, exception)
+        }
     }
 
 }
