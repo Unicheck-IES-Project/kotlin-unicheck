@@ -123,4 +123,35 @@ class MateriaTest {
 
     }
 
+    @Test
+    fun materiaUpdateTest() {
+
+        var nombreDeLaMateria = "Elementos De Ingenieria De Software"
+        var periodoDeCursada = "Elementos De Ingenieria De Software"
+        var nota = 7f
+        var cursando = false
+        var año = 2022
+
+        var nuevoNombreDeLaMateria = "Elementos De Ingenieria De Software2"
+        var nuevoPeriodoDeCursada = "Anual"
+        var nuevaNota = 7f
+        var nuevoCursando = false
+        var nuevoAño = 2010
+
+        materia  = Materia(nombreDeLaMateria,
+            periodoDeCursada,
+            cursando,
+            año,
+            nota,
+            estudiante)
+
+        materia.update(nuevoNombreDeLaMateria, nuevoPeriodoDeCursada, nuevoCursando, nuevoAño, nuevaNota)
+
+        Assertions.assertEquals( materia.nombre, nuevoNombreDeLaMateria)
+        Assertions.assertEquals( materia.periodoDeCursada, nuevoPeriodoDeCursada)
+        Assertions.assertEquals( materia.nota, nuevaNota)
+        Assertions.assertEquals( materia.cursando, nuevoCursando)
+        Assertions.assertEquals( materia.añoDeCursada, nuevoAño)
+    }
+
 }

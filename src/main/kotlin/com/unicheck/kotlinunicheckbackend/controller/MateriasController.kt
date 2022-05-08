@@ -4,6 +4,7 @@ import com.unicheck.kotlinunicheckbackend.model.Materia
 import com.unicheck.kotlinunicheckbackend.service.EstudianteService
 import com.unicheck.kotlinunicheckbackend.service.MateriasService
 import com.unicheck.kotlinunicheckbackend.service.dtos.SubjectCreationRequest
+import com.unicheck.kotlinunicheckbackend.service.dtos.SubjectModificationRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -35,6 +36,19 @@ class MateriasController {
     @GetMapping
     fun materiasParaEstudianteIdentificadoCon(@PathVariable studentIdentifier : Long) : Collection<Materia> {
            return materiasService.subjectsOfStudentIdentifiedBy(studentIdentifier)
+    }
+
+        //Tenemos que handlear el caso de bad request (malos datos en el form) de manera distinta a el 404, para separacion
+        // de errores. En el sprint de manejo de errores, crear una excepcion acorde a cada caso.
+    @PutMapping("/{subjectIdentifier}")
+    @ResponseStatus(HttpStatus.OK)
+    fun modifcarMateria(@PathVariable studentIdentifier: Long,@RequestBody request : SubjectModificationRequest,
+                        @PathVariable subjectIdentifier : Long) : Materia {
+        try {
+            return materiasService.updateSubjectIdentifiedBy(request, subjectIdentifier)
+        } catch (exception : RuntimeException){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, exception.message, exception)
+        }
     }
 
     @DeleteMapping("/{subjectIdentifier}")

@@ -2,10 +2,10 @@ package com.unicheck.kotlinunicheckbackend.service
 
 import com.unicheck.kotlinunicheckbackend.model.Estudiante
 import com.unicheck.kotlinunicheckbackend.model.Materia
-import com.unicheck.kotlinunicheckbackend.model.StudentCreationValidator
 import com.unicheck.kotlinunicheckbackend.repository.EstudianteRepository
 import com.unicheck.kotlinunicheckbackend.repository.MateriasRepository
 import com.unicheck.kotlinunicheckbackend.service.dtos.SubjectCreationRequest
+import com.unicheck.kotlinunicheckbackend.service.dtos.SubjectModificationRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
@@ -46,5 +46,12 @@ class MateriasService(@Autowired var studentService: EstudianteService,
 
     private fun findStudentWith(aStudentIdentifier: Long) : Estudiante {
         return estudianteRepository.findById(aStudentIdentifier).orElseThrow { RuntimeException("No existe usuario con ID dado.") }
+    }
+
+    fun updateSubjectIdentifiedBy(request: SubjectModificationRequest, aSubjectIdentifier: Long): Materia {
+        val subjectToModify = materiasRepository.findById(aSubjectIdentifier).orElseThrow { RuntimeException("No existe materia con ID dado.") }
+        subjectToModify.update(request.nombre,request.periodoDeCursada, request.cursando, request.añoDeCursada, request.nota)
+        materiasRepository.save(subjectToModify)
+        return subjectToModify
     }
 }

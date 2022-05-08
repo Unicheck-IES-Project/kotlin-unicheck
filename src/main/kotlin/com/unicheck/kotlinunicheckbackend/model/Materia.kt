@@ -40,5 +40,18 @@ class Materia(nombre:String,
     private fun esUnaNotaInvalida(nota: Float) =  nota < 1f || nota > 10f
 
     private fun esUnaNotaValida(nota : Float?) = nota == null || !(esUnaNotaInvalida(nota!!))
+    fun update(nombre: String, periodoDeCursada: String, cursando: Boolean, añoDeCursada: Int, nota: Float?) {
+        this.nombre = chequearNombre(nombre)
+        this.periodoDeCursada = periodoDeCursada
+        this.cursando = cursando
+        this.añoDeCursada = añoDeCursada
+        var notaCorrespondiente =
+            if (cursando) {
+                null
+            } else {
+                nota
+            }
+        this.nota = chequearNota(notaCorrespondiente)
+    }
 
 }
