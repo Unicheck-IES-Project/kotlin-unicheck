@@ -1,5 +1,7 @@
 package com.unicheck.kotlinunicheckbackend.service
 
+import com.unicheck.kotlinunicheckbackend.exceptions.StudentNotFoundException
+import com.unicheck.kotlinunicheckbackend.exceptions.SubjectNotFoundException
 import com.unicheck.kotlinunicheckbackend.model.Estudiante
 import com.unicheck.kotlinunicheckbackend.model.Materia
 import com.unicheck.kotlinunicheckbackend.repository.EstudianteRepository
@@ -34,7 +36,7 @@ class MateriasService(@Autowired var studentService: EstudianteService,
     }
 
     fun deleteSubjectForStudentIdentifiedBy(aStudentIdentifier: Long, aSubjectIdentifier: Long): Materia {
-        val subjectToDelete = materiasRepository.findById(aSubjectIdentifier).orElseThrow { RuntimeException("No existe materia con ID dado.") }
+        val subjectToDelete = materiasRepository.findById(aSubjectIdentifier).orElseThrow { SubjectNotFoundException("No existe materia con ID dado.") }
         val student = findStudentWith(aStudentIdentifier)
 
         student.delete(subjectToDelete)
@@ -45,11 +47,11 @@ class MateriasService(@Autowired var studentService: EstudianteService,
     }
 
     private fun findStudentWith(aStudentIdentifier: Long) : Estudiante {
-        return estudianteRepository.findById(aStudentIdentifier).orElseThrow { RuntimeException("No existe usuario con ID dado.") }
+        return estudianteRepository.findById(aStudentIdentifier).orElseThrow { StudentNotFoundException("No existe usuario con ID dado.") }
     }
 
     fun updateSubjectIdentifiedBy(request: SubjectModificationRequest, aSubjectIdentifier: Long): Materia {
-        val subjectToModify = materiasRepository.findById(aSubjectIdentifier).orElseThrow { RuntimeException("No existe materia con ID dado.") }
+        val subjectToModify = materiasRepository.findById(aSubjectIdentifier).orElseThrow { SubjectNotFoundException("No existe materia con ID dado.") }
         subjectToModify.update(request.nombre,request.periodoDeCursada, request.cursando, request.añoDeCursada, request.nota)
         materiasRepository.save(subjectToModify)
         return subjectToModify

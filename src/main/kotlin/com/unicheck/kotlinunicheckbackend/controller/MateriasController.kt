@@ -1,5 +1,8 @@
 package com.unicheck.kotlinunicheckbackend.controller
 
+import com.unicheck.kotlinunicheckbackend.exceptions.StudentAlreadyExistsException
+import com.unicheck.kotlinunicheckbackend.exceptions.StudentNotFoundException
+import com.unicheck.kotlinunicheckbackend.exceptions.SubjectNotFoundException
 import com.unicheck.kotlinunicheckbackend.model.Materia
 import com.unicheck.kotlinunicheckbackend.service.EstudianteService
 import com.unicheck.kotlinunicheckbackend.service.MateriasService
@@ -22,12 +25,15 @@ class MateriasController {
     @Autowired
     private lateinit var estudianteService: EstudianteService
 
+    //POSIBLE ERROR DE 2 MATERIAS CON EL MISMO NOMBRE. HACERLO DESDE EL SERVICE MIRANDO SI HAY UNA MATERIA CON EL NOMBRE.
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun registrarMateria (@PathVariable studentIdentifier : Long, @RequestBody request : SubjectCreationRequest) : Materia {
         try {
             val addedSubject = materiasService.addSubjectToStudentIdentifiedBy(studentIdentifier, request)
             return addedSubject
+        } catch(e: StudentAlreadyExistsException){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND,e.message!!,e)
         } catch(e: RuntimeException){
             throw ResponseStatusException(HttpStatus.BAD_REQUEST,e.message!!,e)
         }
@@ -38,16 +44,16 @@ class MateriasController {
            return materiasService.subjectsOfStudentIdentifiedBy(studentIdentifier)
     }
 
-        //Tenemos que handlear el caso de bad request (malos datos en el form) de manera distinta a el 404, para separacion
-        // de errores. En el sprint de manejo de errores, crear una excepcion acorde a cada caso.
     @PutMapping("/{subjectIdentifier}")
     @ResponseStatus(HttpStatus.OK)
     fun modifcarMateria(@PathVariable studentIdentifier: Long,@RequestBody request : SubjectModificationRequest,
                         @PathVariable subjectIdentifier : Long) : Materia {
         try {
             return materiasService.updateSubjectIdentifiedBy(request, subjectIdentifier)
-        } catch (exception : RuntimeException){
+        } catch (exception : SubjectNotFoundException){
             throw ResponseStatusException(HttpStatus.NOT_FOUND, exception.message, exception)
+        } catch (exception : RuntimeException){
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, exception.message, exception)
         }
     }
 
