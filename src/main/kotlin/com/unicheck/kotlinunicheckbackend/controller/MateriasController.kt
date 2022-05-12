@@ -32,7 +32,7 @@ class MateriasController {
         try {
             val addedSubject = materiasService.addSubjectToStudentIdentifiedBy(studentIdentifier, request)
             return addedSubject
-        } catch(e: StudentAlreadyExistsException){
+        } catch(e: StudentNotFoundException){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,e.message!!,e)
         } catch(e: RuntimeException){
             throw ResponseStatusException(HttpStatus.BAD_REQUEST,e.message!!,e)
