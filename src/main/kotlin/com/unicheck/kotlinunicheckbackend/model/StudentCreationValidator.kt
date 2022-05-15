@@ -10,6 +10,6 @@ class StudentCreationValidator(
     }
 
     private fun validateNotBlankOrElseWarnWith(anErrorMessage : String, textToValidate : String){
-        if (textToValidate.isBlank()) throw InstantiationException(anErrorMessage)
+        if (textToValidate.isBlank()) throw RuntimeException(anErrorMessage)
     }
 }

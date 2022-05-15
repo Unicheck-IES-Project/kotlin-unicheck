@@ -17,8 +17,8 @@ class Mark {
 
     companion object {
         fun withTitle(aTitle : String, aMarkNumber : Float) : Mark {
-            if (aTitle.isBlank()) throw InstantiationException("El titulo de calificación no puede estar en blanco.")
-            if (aMarkNumber < 1 || aMarkNumber > 10) throw InstantiationException("La nota numérica debe ser mayor a 0 y menor a 11.")
+            if (aTitle.isBlank()) throw RuntimeException("El titulo de calificación no puede estar en blanco.")
+            if (aMarkNumber < 1 || aMarkNumber > 10) throw RuntimeException("La nota numérica debe ser mayor a 0 y menor a 11.")
             return Mark(aTitle, aMarkNumber)
         }
     }
