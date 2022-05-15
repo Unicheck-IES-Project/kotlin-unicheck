@@ -1,5 +1,8 @@
 package com.unicheck.kotlinunicheckbackend.controller
 
+import com.unicheck.kotlinunicheckbackend.exceptions.InvalidUsernameOrPasswordException
+import com.unicheck.kotlinunicheckbackend.exceptions.StudentAlreadyExistsException
+import com.unicheck.kotlinunicheckbackend.exceptions.StudentNotFoundException
 import com.unicheck.kotlinunicheckbackend.service.EstudianteService
 import com.unicheck.kotlinunicheckbackend.service.dtos.EstudianteDto
 import com.unicheck.kotlinunicheckbackend.service.dtos.LoginDto
@@ -24,10 +27,10 @@ class EstudianteController {
         try {
             val estudianteCreado = estudianteService.registerStudentWith(studentRegistrationDTO.username, studentRegistrationDTO.password)
             return EstudianteDto(estudianteCreado)
-        } catch(exception: InstantiationException){
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST,exception.message!!,exception)
-        } catch (exception : RuntimeException) {
-            throw ResponseStatusException(HttpStatus.CONFLICT,exception.message!!,exception)
+        } catch(alreadyExistsException: StudentAlreadyExistsException){
+            throw ResponseStatusException(HttpStatus.CONFLICT,alreadyExistsException.message!!,alreadyExistsException)
+        } catch(runtimeExpcetion: RuntimeException){
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST,runtimeExpcetion.message!!,runtimeExpcetion)
         }
     }
 
@@ -36,8 +39,12 @@ class EstudianteController {
         try {
             val estudianteLogueado = estudianteService.login(loginDto.username, loginDto.password)
             return EstudianteDto(estudianteLogueado)
-        } catch(exception: RuntimeException) {
+        } catch(exception: StudentNotFoundException) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, exception.message!!, exception)
+        } catch(exception: InvalidUsernameOrPasswordException) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, exception.message!!, exception)
+        } catch(exception: java.lang.RuntimeException) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, exception.message!!, exception)
         }
     }
 }
