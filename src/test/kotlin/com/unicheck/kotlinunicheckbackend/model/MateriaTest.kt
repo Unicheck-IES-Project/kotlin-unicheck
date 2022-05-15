@@ -20,11 +20,11 @@ class MateriaTest {
     @Test
     fun constructorTest() {
 
-        var nombreDeLaMateria = "Elementos De Ingenieria De Software"
-        var periodoDeCursada = "Elementos De Ingenieria De Software"
-        var nota = 7f
-        var cursando = false
-        var año = 2022
+        val nombreDeLaMateria = "Elementos De Ingenieria De Software"
+        val periodoDeCursada = "Elementos De Ingenieria De Software"
+        val nota = 7f
+        val cursando = false
+        val año = 2022
 
         materia  = Materia(nombreDeLaMateria,
             periodoDeCursada,
@@ -35,19 +35,20 @@ class MateriaTest {
 
         Assertions.assertEquals( materia.nombre, nombreDeLaMateria)
         Assertions.assertEquals( materia.periodoDeCursada, periodoDeCursada)
-        Assertions.assertEquals( materia.nota, nota)
+        Assertions.assertEquals( materia.notas.first().number(), nota)
+        Assertions.assertEquals( materia.notas.first().title(), "Nota final")
         Assertions.assertEquals( materia.cursando, cursando)
         Assertions.assertEquals( materia.añoDeCursada, año)
     }
     @Test
     fun unaMateriaNoPuedeTenerUnaNotaMenorAUnoTest(){
-        var nombreDeLaMateria = "Elementos De Ingenieria De Software"
-        var periodoDeCursada = "Elementos De Ingenieria De Software"
-        var notaMenorAUno = 0f
-        var cursando = false
-        var año = 2022
+        val nombreDeLaMateria = "Elementos De Ingenieria De Software"
+        val periodoDeCursada = "Elementos De Ingenieria De Software"
+        val notaMenorAUno = 0f
+        val cursando = false
+        val año = 2022
 
-        val exception = assertThrows<java.lang.RuntimeException> {
+        val exception = assertThrows<java.lang.InstantiationException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
                 cursando,
@@ -56,19 +57,19 @@ class MateriaTest {
                 estudiante = estudiante)
         }
 
-        Assertions.assertEquals("La nota debe estar comprendida entre los valores 1 y 10", exception.message)
+        Assertions.assertEquals("La nota numérica debe ser mayor a 0 y menor a 11.", exception.message)
 
     }
 
     @Test
     fun unaMateriaNoPuedeTenerUnaNotaMayorADiezTest(){
-        var nombreDeLaMateria = "Elementos De Ingenieria De Software"
-        var periodoDeCursada = "Elementos De Ingenieria De Software"
-        var notaMayorADiez = 11f
-        var cursando = false
-        var año = 2022
+        val nombreDeLaMateria = "Elementos De Ingenieria De Software"
+        val periodoDeCursada = "Elementos De Ingenieria De Software"
+        val notaMayorADiez = 11f
+        val cursando = false
+        val año = 2022
 
-        val exception = assertThrows<java.lang.RuntimeException> {
+        val exception = assertThrows<java.lang.InstantiationException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
                 cursando,
@@ -77,16 +78,16 @@ class MateriaTest {
                 estudiante)
         }
 
-        Assertions.assertEquals("La nota debe estar comprendida entre los valores 1 y 10", exception.message)
+        Assertions.assertEquals("La nota numérica debe ser mayor a 0 y menor a 11.", exception.message)
 
     }
     @Test
     fun unaMateriaNoPuedeTenerUnNombreVacioTest(){
-        var nombreDeLaMateria = ""
-        var periodoDeCursada = "Elementos De Ingenieria De Software"
-        var nota = 7f
-        var cursando = false
-        var año = 2022
+        val nombreDeLaMateria = ""
+        val periodoDeCursada = "Elementos De Ingenieria De Software"
+        val nota = 7f
+        val cursando = false
+        val año = 2022
 
         val exception = assertThrows<java.lang.RuntimeException> {
             materia  = Materia(nombreDeLaMateria,
@@ -103,12 +104,12 @@ class MateriaTest {
 
     @Test
     fun unaMateriaPuedeNoTenerUnaNotaTest(){
-        var nombreDeLaMateria = "Elementos De Ingenieria De Software"
-        var periodoDeCursada = "Elementos De Ingenieria De Software"
-        var cursando = false
-        var año = 2022
+        val nombreDeLaMateria = "Elementos De Ingenieria De Software"
+        val periodoDeCursada = "Elementos De Ingenieria De Software"
+        val cursando = false
+        val año = 2022
 
-        var materia  = Materia(nombreDeLaMateria,
+        val materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
                 cursando,
                 año,
@@ -117,7 +118,7 @@ class MateriaTest {
 
         Assertions.assertEquals( materia.nombre, nombreDeLaMateria)
         Assertions.assertEquals( materia.periodoDeCursada, periodoDeCursada)
-        Assertions.assertEquals( materia.nota, null)
+        Assertions.assertTrue( materia.notas.isEmpty())
         Assertions.assertEquals( materia.cursando, cursando)
         Assertions.assertEquals( materia.añoDeCursada, año)
 
@@ -126,17 +127,17 @@ class MateriaTest {
     @Test
     fun materiaUpdateTest() {
 
-        var nombreDeLaMateria = "Elementos De Ingenieria De Software"
-        var periodoDeCursada = "Elementos De Ingenieria De Software"
-        var nota = 7f
-        var cursando = false
-        var año = 2022
+        val nombreDeLaMateria = "Elementos De Ingenieria De Software"
+        val periodoDeCursada = "Elementos De Ingenieria De Software"
+        val nota = 7f
+        val cursando = false
+        val año = 2022
 
-        var nuevoNombreDeLaMateria = "Elementos De Ingenieria De Software2"
-        var nuevoPeriodoDeCursada = "Anual"
-        var nuevaNota = 7f
-        var nuevoCursando = false
-        var nuevoAño = 2010
+        val nuevoNombreDeLaMateria = "Elementos De Ingenieria De Software2"
+        val nuevoPeriodoDeCursada = "Anual"
+        val nuevaNota = 7f
+        val nuevoCursando = false
+        val nuevoAño = 2010
 
         materia  = Materia(nombreDeLaMateria,
             periodoDeCursada,
@@ -149,7 +150,8 @@ class MateriaTest {
 
         Assertions.assertEquals( materia.nombre, nuevoNombreDeLaMateria)
         Assertions.assertEquals( materia.periodoDeCursada, nuevoPeriodoDeCursada)
-        Assertions.assertEquals( materia.nota, nuevaNota)
+        Assertions.assertEquals( materia.notas.first().number(), nuevaNota)
+        Assertions.assertEquals( materia.notas.first().title(), "Nota final")
         Assertions.assertEquals( materia.cursando, nuevoCursando)
         Assertions.assertEquals( materia.añoDeCursada, nuevoAño)
     }
