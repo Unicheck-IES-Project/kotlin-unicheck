@@ -4,11 +4,11 @@ import javax.persistence.*
 
 
 @Entity
-class Mark {
+class Grade {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private val id : Long? = null
+    var id : Long? = null
     private val title : String
     private val number : Float
 
@@ -16,10 +16,10 @@ class Mark {
     private val subject: Materia? = null
 
     companion object {
-        fun withTitle(aTitle : String, aMarkNumber : Float) : Mark {
+        fun withTitle(aTitle : String, aMarkNumber : Float) : Grade {
             if (aTitle.isBlank()) throw RuntimeException("El titulo de calificación no puede estar en blanco.")
             if (aMarkNumber < 1 || aMarkNumber > 10) throw RuntimeException("La nota numérica debe ser mayor a 0 y menor a 11.")
-            return Mark(aTitle, aMarkNumber)
+            return Grade(aTitle, aMarkNumber)
         }
     }
 

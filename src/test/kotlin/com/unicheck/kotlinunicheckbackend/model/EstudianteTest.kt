@@ -10,7 +10,7 @@ class EstudianteTest {
 
     @Test
     fun `un estudiante no puede tener nombre de usuario vacio`(){
-        val exception = assertThrows(InstantiationException::class.java,
+        val exception = assertThrows(RuntimeException::class.java,
             { Estudiante.identificadoCon(" ", PASSWORD) }
         )
 
@@ -19,7 +19,7 @@ class EstudianteTest {
 
     @Test
     fun `un estudiante no puede tener una password en blanco`(){
-        val exception = assertThrows(InstantiationException::class.java,
+        val exception = assertThrows(RuntimeException::class.java,
             { Estudiante.identificadoCon(USERNAME, " ") }
         )
 

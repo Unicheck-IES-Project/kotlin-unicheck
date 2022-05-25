@@ -7,10 +7,11 @@ import com.unicheck.kotlinunicheckbackend.model.Materia
 class SubjectDTO {
 
     var id: Long? = null
-    var nota : Float? = null
+    var notaFinal : Float? = null
     var nombre : String
     var periodoDeCursada:String
     var cursando:Boolean
+    var notas:List<GradeDTO>
     var añoDeCursada: Int
     var estudiante : Estudiante? = null
 
@@ -18,9 +19,8 @@ class SubjectDTO {
         this.nombre = aSubject.nombre
         this.periodoDeCursada = aSubject.periodoDeCursada
         this.cursando = aSubject.cursando
-        if (aSubject.notas.isNotEmpty()) {
-            this.nota = aSubject.notas.first().number()
-        }
+        this.notaFinal = aSubject.notaFinal
+        this.notas = aSubject.notas.map { grade -> GradeDTO(grade.id!!, grade.title(), grade.number()) }
         this.añoDeCursada = aSubject.añoDeCursada
         this.id = aSubject.id
         this.estudiante = aSubject.estudiante

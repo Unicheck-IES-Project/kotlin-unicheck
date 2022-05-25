@@ -12,9 +12,14 @@ class Materia {
         this.cursando = cursando
         this.añoDeCursada = añoDeCursada
         this.estudiante = estudiante
-        if (nota != null) {
-            this.notas.add(Mark.withTitle("Nota final", nota))
+        if (isValidFinalGrade(nota)) {
+            this.notaFinal = nota
         }
+        this.notas = ArrayList()
+    }
+
+    private fun isValidFinalGrade(grade: Float?): Boolean {
+        return grade != null && grade > 0 && grade < 11
     }
 
     @Id
@@ -22,7 +27,9 @@ class Materia {
     var id: Long? = null
 
     @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
-    var notas : MutableList<Mark> = mutableListOf()
+    var notas : MutableList<Grade> = mutableListOf()
+
+    var notaFinal : Float? = null
 
     var nombre : String
 
@@ -39,12 +46,23 @@ class Materia {
         this.añoDeCursada = anioDeCursada
 
         if (cursando) {
-            if (notas.isNotEmpty()) { notas.removeFirst() }
+            this.notaFinal = null
         } else {
             if (nota != null) {
-                if (notas.isNotEmpty()) { notas.removeFirst() }
-                this.notas.add(Mark.withTitle("Nota final", nota))
+                this.notaFinal = nota
             }
+        }
+    }
+
+    fun addGradeTitledAs(title: String, aGrade: Float): Grade {
+        val grade = Grade.withTitle(title, aGrade)
+        notas.add(grade)
+        return grade
+    }
+
+    fun delete(aGrade: Grade) {
+        if (notas.contains(aGrade)) {
+            notas.remove(aGrade)
         }
     }
 
