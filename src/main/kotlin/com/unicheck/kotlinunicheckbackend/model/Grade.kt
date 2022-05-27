@@ -9,8 +9,8 @@ class Grade {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     var id : Long? = null
-    private val title : String
-    private val number : Float
+    val title : String
+    val number : Float
 
     @ManyToOne(fetch = FetchType.LAZY)
     private val subject: Materia? = null
