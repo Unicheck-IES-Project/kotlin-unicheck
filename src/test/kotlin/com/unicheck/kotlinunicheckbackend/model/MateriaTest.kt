@@ -48,7 +48,7 @@ class MateriaTest {
         val cursando = false
         val año = 2022
 
-        val exception = assertThrows<java.lang.InstantiationException> {
+        val exception = assertThrows<RuntimeException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
                 cursando,
@@ -69,7 +69,7 @@ class MateriaTest {
         val cursando = false
         val año = 2022
 
-        val exception = assertThrows<java.lang.InstantiationException> {
+        val exception = assertThrows<RuntimeException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
                 cursando,
@@ -89,7 +89,7 @@ class MateriaTest {
         val cursando = false
         val año = 2022
 
-        val exception = assertThrows<java.lang.RuntimeException> {
+        val exception = assertThrows<RuntimeException> {
             materia  = Materia(nombreDeLaMateria,
                 periodoDeCursada,
                 cursando,
@@ -154,6 +154,25 @@ class MateriaTest {
         Assertions.assertEquals( materia.notas.first().title(), "Nota final")
         Assertions.assertEquals( materia.cursando, nuevoCursando)
         Assertions.assertEquals( materia.añoDeCursada, nuevoAño)
+    }
+
+    @Test
+    fun `can_add_a_grade_to_a_subject`() {
+        val subject  = Materia("Matematicas", "Primer cuatrimestre", true, 2001, 9f, estudiante)
+
+        val addedGrade = subject.addGradeTitledAs("Primer parcial", 10f)
+
+        Assertions.assertTrue(subject.notas.contains(addedGrade))
+    }
+
+    @Test
+    fun `can_remove_a_grade_to_a_subject`() {
+        val subject  = Materia("Matematicas", "Primer cuatrimestre", true, 2001, 9f, estudiante)
+        val addedGrade = subject.addGradeTitledAs("Primer parcial", 10f)
+
+        subject.delete(addedGrade)
+
+        Assertions.assertFalse(subject.notas.contains(addedGrade))
     }
 
 }
