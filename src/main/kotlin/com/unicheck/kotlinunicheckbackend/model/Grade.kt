@@ -42,4 +42,8 @@ class Grade {
     fun addPicture(file: MultipartFile) {
         this.images.add(Image(picture = file.bytes, grade = this))
     }
+
+    fun removeGradeIdentifiedWith(pictureId: Long) {
+        this.images.removeIf { image -> image.id!! == (pictureId) }
+    }
 }

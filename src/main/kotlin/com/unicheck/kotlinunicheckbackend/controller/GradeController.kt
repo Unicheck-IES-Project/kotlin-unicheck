@@ -2,7 +2,9 @@ package com.unicheck.kotlinunicheckbackend.controller
 
 import com.unicheck.kotlinunicheckbackend.model.Grade
 import com.unicheck.kotlinunicheckbackend.service.GradeService
+import com.unicheck.kotlinunicheckbackend.service.dtos.GradeDTO
 import com.unicheck.kotlinunicheckbackend.service.dtos.GradeRegistrationRequest
+import com.unicheck.kotlinunicheckbackend.service.dtos.ImageDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.server.ResponseStatusException
 
@@ -41,7 +43,17 @@ class GradeController {
 
     @PostMapping("/{gradeIdentifier}", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     @ResponseStatus(HttpStatus.CREATED)
-    fun setProfilePicture(@PathVariable gradeIdentifier: Long, @RequestParam file: MultipartFile): Grade{
-        return gradeService.addPicture(gradeIdentifier, file)
+    fun addPictureToGradeIdentifiedBy(@PathVariable gradeIdentifier: Long, @RequestParam file: MultipartFile): GradeDTO {
+        var grade = gradeService.addPicture(gradeIdentifier, file)
+        var images = grade.images.map { image -> ImageDTO(image.id!!, image.picture) }
+        return GradeDTO(grade.id!!, grade.title, grade.number(), images)
+    }
+
+    @DeleteMapping("/{gradeIdentifier}/{pictureId}")
+    @ResponseStatus(HttpStatus.OK)
+    fun removePictureOfGradeIdentifiedBy(@PathVariable gradeIdentifier: Long, @PathVariable pictureId: Long): GradeDTO {
+        var grade = gradeService.removePictureOf(gradeIdentifier, pictureId)
+        var images = grade.images.map { image -> ImageDTO(image.id!!, image.picture) }
+        return GradeDTO(grade.id!!, grade.title, grade.number(), images)
     }
 }

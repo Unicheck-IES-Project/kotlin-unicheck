@@ -38,4 +38,11 @@ class GradeService(@Autowired var gradeRepository: GradeRepository, @Autowired v
         return obtainedGrade
     }
 
+    fun removePictureOf(gradeIdentifier: Long, pictureId: Long): Grade {
+        val obtainedGrade = gradeRepository.findById(gradeIdentifier).orElseThrow { StudentNotFoundException("No existe calificacion con ID dado.") }
+        obtainedGrade.removeGradeIdentifiedWith(pictureId)
+        gradeRepository.save(obtainedGrade)
+        return obtainedGrade
+    }
+
 }
