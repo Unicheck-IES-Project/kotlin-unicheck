@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.server.ResponseStatusException
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/api/v1/{subjectIdentifier}/grade")
@@ -37,4 +39,9 @@ class GradeController {
         }
     }
 
+    @PostMapping("/{gradeIdentifier}", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    @ResponseStatus(HttpStatus.CREATED)
+    fun setProfilePicture(@PathVariable gradeIdentifier: Long, @RequestParam file: MultipartFile): Grade{
+        return gradeService.addPicture(gradeIdentifier, file)
+    }
 }

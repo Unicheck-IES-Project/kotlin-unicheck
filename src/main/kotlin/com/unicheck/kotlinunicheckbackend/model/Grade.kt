@@ -1,5 +1,6 @@
 package com.unicheck.kotlinunicheckbackend.model
 
+import org.springframework.web.multipart.MultipartFile
 import javax.persistence.*
 
 
@@ -11,6 +12,9 @@ class Grade {
     var id : Long? = null
     val title : String
     val number : Float
+
+    @OneToMany(mappedBy="grade", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
+    var images: MutableList<Image> = mutableListOf()
 
     @ManyToOne(fetch = FetchType.LAZY)
     private val subject: Materia? = null
@@ -33,5 +37,9 @@ class Grade {
     }
     fun number():Float {
         return number
+    }
+
+    fun addPicture(file: MultipartFile) {
+        this.images.add(Image(picture = file.bytes, grade = this))
     }
 }

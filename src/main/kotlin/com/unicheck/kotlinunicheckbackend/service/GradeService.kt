@@ -8,6 +8,7 @@ import com.unicheck.kotlinunicheckbackend.repository.MateriasRepository
 import com.unicheck.kotlinunicheckbackend.service.dtos.GradeRegistrationRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 class GradeService(@Autowired var gradeRepository: GradeRepository, @Autowired var subjectRepository: MateriasRepository){
@@ -27,6 +28,13 @@ class GradeService(@Autowired var gradeRepository: GradeRepository, @Autowired v
         subject.delete(obtainedGrade)
 
         gradeRepository.delete(obtainedGrade)
+        return obtainedGrade
+    }
+
+    fun addPicture(gradeIdentifier: Long, file: MultipartFile): Grade{
+        val obtainedGrade = gradeRepository.findById(gradeIdentifier).orElseThrow { StudentNotFoundException("No existe calificacion con ID dado.") }
+        obtainedGrade.addPicture(file)
+        gradeRepository.save(obtainedGrade)
         return obtainedGrade
     }
 
