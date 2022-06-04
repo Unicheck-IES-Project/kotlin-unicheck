@@ -44,6 +44,6 @@ class Grade {
     }
 
     fun removeGradeIdentifiedWith(pictureId: Long) {
-        this.images.removeIf { image -> image.id!! == (pictureId) }
+        images = images.filter { image -> image.id!! != (pictureId) }.toMutableList()
     }
 }
