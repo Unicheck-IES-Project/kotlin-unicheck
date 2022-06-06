@@ -20,7 +20,7 @@ class SubjectDTO {
         this.periodoDeCursada = aSubject.periodoDeCursada
         this.cursando = aSubject.cursando
         this.notaFinal = aSubject.notaFinal
-        this.notas = aSubject.notas.map { grade -> GradeDTO(grade.id!!, grade.title(), grade.number()) }
+        this.notas = aSubject.notas.map { grade -> GradeDTO(grade.id!!, grade.title(), grade.number(), grade.images.map { image -> ImageDTO(image.id!!, image.picture) }) }
         this.añoDeCursada = aSubject.añoDeCursada
         this.id = aSubject.id
         this.estudiante = aSubject.estudiante
